@@ -5,6 +5,7 @@
 
 // 0 = FALSE
 // 1 = TRUE
+// we are testing the ability to commit changes in github
 
 // Variables
 int left_motor_port = 3;
