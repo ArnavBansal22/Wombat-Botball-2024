@@ -11,12 +11,14 @@ int left_motor_port = 3;
 int right_motor_port = 0;
 int left_motor_power = 70;
 int right_motor_power = 67;
-int color_sensor_port = 1;
+int color_sensor_port = 0;
 int blackwhite_threshold = 1500;
-int /* CHANGE THIS */ condition_1 = 0;
-int servo_arm1_port = 0;
-int servo_arm1_upposition = 600; //CHANGE THIS
-int servo_arm1_downposition = 1200; //CHANGE THIS
+// int /* CHANGE THIS */ condition_1 = 0;
+int sorting_servo = 3;
+int sorting_servo_leftpos = 500; 
+int sorting_servo_rightpos = 1500;
+int arm_servo = 0;
+int claw_servo = 1;
 
 // Other basic Functions
     //drive forward for a certain time
@@ -29,7 +31,7 @@ int servo_arm1_downposition = 1200; //CHANGE THIS
         };
 
     //drive forward until the next black line
-        int drive_forward_until_black_line() {
+       int drive_forward_until_black_line() {
             while (analog(color_sensor_port) < blackwhite_threshold) {
                 motor(left_motor_port, left_motor_power);
                 motor(right_motor_port, right_motor_power);
@@ -37,10 +39,10 @@ int servo_arm1_downposition = 1200; //CHANGE THIS
             }
             ao();
             return(0);
-        }
+        } 
     
     //line follower (follow a black line)  
-        int follow_black_line() {
+    /*    int follow_black_line() {
             while (condition_1 == 0) {
                 if (analog(color_sensor_port) > blackwhite_threshold) { // on black, go to white
                     motor(right_motor_port, right_motor_power);
@@ -53,26 +55,44 @@ int servo_arm1_downposition = 1200; //CHANGE THIS
             }
             ao();
             return(0);
+        } */
+
+    // set sorting_servo position to left
+        int sorting_servo_left() { /* CHANGE THE NAME */
+            enable_servos();
+            set_servo_position(sorting_servo, sorting_servo_leftpos);
+            msleep(500);
+            disable_servos();
+            return(0);
+        }
+    
+    // set sorting_servo position to right
+        int sorting_servo_right() { /* CHANGE THE NAME */
+            enable_servos();
+            set_servo_position(sorting_servo, sorting_servo_rightpos);
+            msleep(500);
+            disable_servos();
+            return(0);
+        }
+    
+    // set arm_servo position to a position
+        int arm_servo_posfun(int arm_servo_pos) { /* CHANGE THE NAME */
+            enable_servos();
+            set_servo_position(arm_servo, arm_servo_pos);
+            msleep(500);
+            disable_servos();
+            return(0);
         }
 
-    // set servo position to open/up
-        int open_claw() { /* CHANGE THE NAME */
+    // set claw_servo position to a position
+        int claw_servo_posfun(int claw_servo_pos) { /* CHANGE THE NAME */
             enable_servos();
-            set_servo_position(servo_arm1_port, servo_arm1_upposition);
+            set_servo_position(claw_servo, claw_servo_pos);
             msleep(500);
             disable_servos();
             return(0);
         }
-    
-    // set servo position to closed/down
-        int close_claw() { /* CHANGE THE NAME */
-            enable_servos();
-            set_servo_position(servo_arm1_port, servo_arm1_downposition);
-            msleep(500);
-            disable_servos();
-            return(0);
-        }
-    
+
     // turn robot left
         int turn_left(int time) {
             motor(left_motor_port, 0);
@@ -90,3 +110,8 @@ int servo_arm1_downposition = 1200; //CHANGE THIS
             ao();
             return(0);
         }
+
+int main() {
+
+}
+
