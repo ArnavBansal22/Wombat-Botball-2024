@@ -107,12 +107,39 @@
 
 int main()
 {
+    // setting up the robot to its state inside the box
     arm_servo_posfun(1300);
     claw_servo_posfun(1500);
     sorting_servo_left();
+    
+    // accurately close the claw on the red pom
     drive_forward_until_black_line();
-    drive_forward(2000);
-    turn_left(1000);
-    drive_forward(1000);
+    drive_forward(3300);
+    turn_left(1150);
+    drive_forward(1500);
+    turn_right(2300);
+    drive_backward(3000);
+    drive_forward(900);
+    claw_servo_posfun(1300);
+    arm_servo_posfun(240);
+    claw_servo_posfun(1750);
+    arm_servo_posfun(440);
+    
+    // put the red poms on one side and the green ones on the other side
+    drive_forward(3000);
+    sorting_servo_right();
+    drive_backward(5000);
+    arm_servo_posfun(240);
+    claw_servo_posfun(1300);
+    drive_forward(4000);
+    
+
+    
+    /*drive_forward(100);
+    turn_right(1150);
+    drive_backward(1500);
+    turn_left(1150);
+    claw_servo_posfun(1300);
+    drive_forward(2000);*/
     return 0;
 }
